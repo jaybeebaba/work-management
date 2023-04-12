@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import { projectAuth } from '../config/config'
+import { projectAuth, projectStorage } from '../config/config'
 import { useAuthContext } from './useAuthContext'
 
 export const useSignup = () => {
-  const [isCancelled, setIsCancelled] = useState(false)
+  const [isCancelled, setIsCancelled] = useState(null)
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch } = useAuthContext()
 
-  const signup = async (email, password, displayName) => {
+  const signup = async (email, password, displayName, thumbnail) => {
     setError(null)
     setIsPending(true)
   
@@ -20,8 +20,16 @@ export const useSignup = () => {
         throw new Error('Could not complete signup')
       }
 
+      // get imgURL
+      const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`
+      const img = await projectStorage.ref(uploadPath).put(thumbnail)
+      const imgURL = await img.ref.getDownloadURL()
+
+
+
+
       // add display name to user
-      await res.user.updateProfile({ displayName })
+      await res.user.updateProfile({ displayName, photoURL: imgURL })
 
       // dispatch login action
       dispatch({ type: 'LOGIN', payload: res.user })
@@ -40,7 +48,7 @@ export const useSignup = () => {
   }
 
   useEffect(() => {
-    return () => setIsCancelled(true)
+    return () => setIsCancelled("")
   }, [])
 
   return { signup, error, isPending }
