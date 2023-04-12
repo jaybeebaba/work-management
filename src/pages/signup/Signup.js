@@ -35,8 +35,6 @@ export default function Signup() {
     }
     setThumbnailError(null)
     setThumbnail(selected)
-    console.log(selected)
-    console.log("thumbnail update", thumbnail)
     
 
   }
@@ -82,7 +80,7 @@ export default function Signup() {
       </label>
       {error && <p className='error'>{error}</p>}
       {!isPending && <button className="btn">Sign up</button>}
-      {isPending && <button className="btn">Loading</button>}
+      {isPending && <button className="btn" disabled>Loading</button>}
     </form>
   )
 }
