@@ -10,6 +10,7 @@ import Create from "./pages/create/Create"
 import Project from "./pages/project/Project"
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Users from "./components/Users";
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
       {
         authIsReady && (
           <div className="App">
-      <Sidebar />
+      {user && <Sidebar />}
       <div className="container">
         <Navbar />
         <Switch>
@@ -42,6 +43,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      <Users />
     </div>
         )
       }

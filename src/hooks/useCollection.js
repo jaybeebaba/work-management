@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { projectFirestore } from "../config/config"
+import { projectFireStore } from "../config/config"
 
 export const useCollection = (collection, _query, _orderBy) => {
   const [documents, setDocuments] = useState(null)
@@ -11,7 +11,7 @@ export const useCollection = (collection, _query, _orderBy) => {
   const orderBy = useRef(_orderBy).current
 
   useEffect(() => {
-    let ref = projectFirestore.collection(collection)
+    let ref = projectFireStore.collection(collection)
 
     if (query) {
       ref = ref.where(...query)

@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import "./Sidebar.css"
 import DashboardIcon from '../assets/dashboard_icon.svg'
 import AddIcon from '../assets/add_icon.svg'
+import Avatar from "./Avatar"
 
 export default function Sidebar() {
 
@@ -14,7 +15,7 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-content">
         <div className="user">
-          <img src={user.photoURL}/>
+          <Avatar src={user.photoURL} />
           <p>Hey, {user.displayName.toUpperCase()}</p>  
         </div>  
         <nav className="links">
