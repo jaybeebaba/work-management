@@ -1,4 +1,5 @@
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { useAuthContext } from "./hooks/useAuthContext";
 import './App.css';
 
 // pages
@@ -11,30 +12,41 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 function App() {
+
+  const {user, authIsReady} = useAuthContext()
   return (
-    <div className="App">
+    <>
+      {
+        authIsReady && (
+          <div className="App">
       <Sidebar />
       <div className="container">
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Dashboard />
+            {user ? <Dashboard /> : <Redirect to="/login" />}
           </Route>
           <Route path="/login">
-            <Login />
+            {!user ? <Login /> : <Redirect to="/"/>}
           </Route>
+
           <Route path="/signup">
-            <Signup />
+            
+            {!user ? <Signup /> : <Redirect to="/"/>}
           </Route>
           <Route path="/create">
-            <Create />
+            {user  ? <Create /> : <Redirect to="/login"/> }
           </Route>
           <Route path="/projects/:id">
-            <Project />
+            {user ? <Project /> : <Redirect to="/login" />}
           </Route>
         </Switch>
       </div>
     </div>
+        )
+      }
+    </>
+    
   );
 }
 
