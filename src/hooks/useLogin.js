@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { projectAuth } from '../config/config'
+import { projectAuth, projectFireStore } from '../config/config'
 import { useAuthContext } from './useAuthContext'
 
 export const useLogin = () => {
-  const [isCancelled, setIsCancelled] = useState(false)
+  const [isCancelled, setIsCancelled] = useState(null)
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch } = useAuthContext()
@@ -15,6 +15,12 @@ export const useLogin = () => {
     try {
       // login
       const res = await projectAuth.signInWithEmailAndPassword(email, password)
+
+      // update online property of user
+
+      await projectFireStore.collection("users").doc(res.user.uid).update({
+        online: true
+      })
 
       // dispatch login action
       dispatch({ type: 'LOGIN', payload: res.user })
@@ -33,7 +39,7 @@ export const useLogin = () => {
   }
 
   useEffect(() => {
-    return () => setIsCancelled(true)
+    return () => setIsCancelled("")
   }, [])
 
   return { login, isPending, error }
