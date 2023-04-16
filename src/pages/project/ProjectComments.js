@@ -38,7 +38,7 @@ const ProjectComments = ({project}) => {
           <li key={comment.id}>
             <div className="comment-author">
               <Avatar src={comment.photoURL} />
-              <p>{comment.displayName}</p>
+              <p>{comment.displayName.toLowerCase()}</p>
             </div>
             <div className="comment-date">
               <p>date here</p>

@@ -13,7 +13,7 @@ const Project = () => {
     return <div className="error">{error}</div>
   }
   if (!document) {
-    return <div className="loading">Loading...</div>
+    return <div className="loading">Loading....</div>
   }
 
   return (
