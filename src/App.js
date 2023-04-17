@@ -43,7 +43,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <Users />
+      {user && <Users />}
     </div>
         )
       }
