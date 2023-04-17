@@ -14,7 +14,6 @@ const Dashboard = () => {
     setCurrentFilter(newFilter)
   }
 
-  console.log(documents)
 
   const projects = documents ? documents.filter((doc) =>{
     if(currentFilter === "all"){
