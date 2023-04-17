@@ -3,6 +3,7 @@ import { timeStamp } from '../../config/config'
 import {useAuthContext} from '../../hooks/useAuthContext'
 import { useFirestore } from '../../hooks/useFirestore'
 import Avatar from '../../components/Avatar'
+import moment from "moment"
 
 const ProjectComments = ({project}) => {
     const [newComment, setNewComment] =useState("")
@@ -41,7 +42,7 @@ const ProjectComments = ({project}) => {
               <p>{comment.displayName.toLowerCase()}</p>
             </div>
             <div className="comment-date">
-              <p>date here</p>
+              {moment(comment.createdAt.toDate(), "YYYYMMDD").fromNow()}
             </div>
             <div className="comment-content">
               <p>{comment.content}</p>
